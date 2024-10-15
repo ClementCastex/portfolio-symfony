@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Projets{% endblock %}
+
+{% block body %}
+<h1>Liste des Projets</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for projet in projets %}
+        <tr>
+            <td>{{ projet.id }}</td>
+            <td>{{ projet.title }}</td>
+            <td>{{ projet.description }}</td>
+            <td>
+                <a href="{{ path('api_projets_show', {'id': projet.id}) }}" class="btn btn-info">Voir</a>
+                <a href="{{ path('api_projets_edit', {'id': projet.id}) }}" class="btn btn-primary">Modifier</a>
+                <form method="post" action="{{ path('api_projets_delete', {'id': projet.id}) }}" style="display:inline-block;">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ projet.id) }}">
+                    <button class="btn btn-danger" type="submit">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4">Aucun projet trouvé.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('api_projets_new') }}" class="btn btn-success">Créer un nouveau projet</a>
+{% endblock %}

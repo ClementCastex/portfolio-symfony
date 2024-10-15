@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le projet{% endblock %}
+
+{% block body %}
+<h1>Modifier le projet</h1>
+
+{{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.image) }}
+    {{ form_row(form.category) }}
+    <button class="btn btn-primary">Mettre à jour</button>
+{{ form_end(form) }}
+
+<a href="{{ path('api_projets_index') }}" class="btn btn-secondary">Retour à la liste</a>
+{% endblock %}
